@@ -10,7 +10,7 @@ using System.Text;
 
 namespace PaddleOCR.hubserving
 {
-    public static class Client
+    public class Client
     {
         public static string Cv2ToBase64(byte[] image)
         {
@@ -71,7 +71,7 @@ namespace PaddleOCR.hubserving
         }
 
 
-        public static string Url { get; set; }
+        public string Url { get; set; }
 
         /// <summary>
         /// 百度云文字识别风格的识别
@@ -79,7 +79,7 @@ namespace PaddleOCR.hubserving
         /// <param name="image">待识别图片文件的二进制格式</param>
         /// <param name="options">选项（暂时不支持）</param>
         /// <returns></returns>
-        public static JObject Identify(byte[] image,Dictionary<string,object> options=null)
+        public JObject Identify(byte[] image,Dictionary<string,object> options=null)
         {
             JObject result=new JObject();
 
@@ -89,7 +89,7 @@ namespace PaddleOCR.hubserving
 
             byte[] bytes = Encoding.UTF8.GetBytes(json);
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Client.Url);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.Url);
             request.Method = "POST";
             request.ContentType = "application/json";
             Stream myResponseStream = request.GetRequestStream();
